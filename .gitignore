@@ -1,0 +1,37 @@
+# Vivado generated directories
+build/
+.Xil/
+*.cache/
+*.gen/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+
+# Vivado logs, journals and databases
+*.jou
+*.log
+*.str
+*.wdb
+*.wcfg
+*.dcp
+*.rpt
+*.rpx
+*.pb
+*.xml
+*.vdi
+*.xpr
+
+# Generated programming files
+*.bit
+*.bin
+*.mcs
+*.ltx
+
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+*~
+Thumbs.db
+.DS_Store
