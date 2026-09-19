@@ -28,6 +28,10 @@ build/
 *.mcs
 *.ltx
 
+# Generated captures, plots and runtime crash dumps
+capture/
+hs_err_pid*.dmp
+
 # Editor and OS files
 .vscode/
 .idea/

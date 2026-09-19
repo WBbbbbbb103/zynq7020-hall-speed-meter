@@ -15,6 +15,9 @@ Zynq-7000 的 PL 侧，使用两只固定霍尔传感器测量小车经过两道
 - 板载 USB-UART 输出，例如 `F,2500` 或 `R,2500`；
 - TM1637 四位数码管显示速度；
 - LED1 测速成功闪烁，LED2 指示方向；
+- 双路XADC以约50 k组/秒采样，并分别保存霍尔A、霍尔B触发窗口；
+- ILA可现场观察AO码值、采样有效信号和数字霍尔事件；
+- 两个触发窗口自动通过UART导出，电脑脚本生成CSV和波形图；
 - 自检仿真覆盖正向、反向、UART和TM1637活动。
 
 TM1637驱动会在ACK周期释放DIO，但当前版本不采样ACK；因此显示器断线不会作为
@@ -26,7 +29,7 @@ TM1637驱动会在ACK周期释放DIO，但当前版本不采样ACK；因此显�
 - FPGA：`XC7Z020-2CLG484I`；
 - Vivado Part：`xc7z020clg484-2`；
 - Vivado：2022.2；
-- 两只数字输出霍尔传感器模块；
+- 两只带数字输出和AO输出的霍尔传感器模块；
 - 一块 3.3 V / 5 V 双向 NMOS 电平转换板；
 - 5 V TM1637 四位数码管；
 - 一块固定在小车上的磁铁。
@@ -57,6 +60,22 @@ Windows PowerShell 中进入仓库根目录。包装脚本会把Tcl文件转换�
 ```powershell
 & 'D:\vivado\Vivado\2022.2\bin\vivado.bat' -mode batch `
   -source (Resolve-Path '.\scripts\create_project.tcl')
+```
+
+双霍尔数字边沿与双AO采样共用的工程名为 `car2`。创建后工程文件位于：
+
+```text
+build/car2/car2.xpr
+```
+
+AO波形缓存、ILA和电脑端绘图的使用说明见
+[docs/ao-waveform-capture.md](docs/ao-waveform-capture.md)。
+
+重建 `car2` 工程：
+
+```powershell
+& 'D:\vivado\Vivado\2022.2\bin\vivado.bat' -mode batch `
+  -source (Resolve-Path '.\scripts\create_ao_project.tcl')
 ```
 
 运行仿真：
@@ -136,10 +155,10 @@ DRC仅保留纯PL Zynq工程预期的`ZPS7-1`警告，含义与使用边界见�
 
 ## 安全说明
 
-- Zynq PL I/O只允许3.3 V，禁止5 V直接进入 `G15/F16/C19/D18`；
+- Zynq PL数字I/O只允许3.3 V，禁止5 V直接进入 `G15/G16/C19/D18`；
 - 电平转换板必须同时连接 `VCCA=3V3` 与 `VCCB=+5V`，并且共地；
 - FPGA接低压A侧，5 V传感器和TM1637接高压B侧；
-- `AO`是模拟输出，不得接入本项目的霍尔数字输入；
+- `AO`不得接入普通数字GPIO或NMOS电平转换板；启用双AO扩展时，只能经已验证的分压/RC网络接入XADC模拟输入；
 - 每次修改接线前断电；板灯变暗、USB掉线或器件发热时立即断电。
 
 ## 许可证

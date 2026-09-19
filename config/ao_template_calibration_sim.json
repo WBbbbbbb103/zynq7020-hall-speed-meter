@@ -1,0 +1,21 @@
+{
+  "evidence_label": "SIM_TEMPLATE_NOT_MEASURED",
+  "clock_hz": 50000000.0,
+  "sample_rate_hz": 50000.0,
+  "pre_samples": 4096,
+  "notes": "Gaussian templates and ADC code calibration are simulation placeholders. Replace using measured template data.",
+  "channels": {
+    "A": {
+      "baseline_code": 1450.0,
+      "amplitude_code": 1350.0,
+      "center_mm": 0.0,
+      "sigma_mm": 18.0
+    },
+    "B": {
+      "baseline_code": 1550.0,
+      "amplitude_code": 1250.0,
+      "center_mm": 100.0,
+      "sigma_mm": 18.0
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "evidence_label": "SIM_PLACEHOLDER_NOT_MEASURED",
+  "clock_hz": 50000000.0,
+  "notes": "Replace all edge positions with independently measured values before hardware claims.",
+  "forward": {
+    "AON_mm": -10.0,
+    "AOF_mm": 10.0,
+    "BON_mm": 90.0,
+    "BOF_mm": 110.0
+  },
+  "reverse": {
+    "AON_mm": 10.0,
+    "AOF_mm": -10.0,
+    "BON_mm": 110.0,
+    "BOF_mm": 90.0
+  }
+}
